@@ -1,12 +1,17 @@
 package com.alanai.todogenix;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.alan.alansdk.AlanCallback;
 import com.alan.alansdk.AlanConfig;
 import com.alan.alansdk.events.EventCommand;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -39,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_layout_main, homeFragment).commit();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+            requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+
         AlanConfig config = AlanConfig.builder().setProjectId(SDK_KEY).build();
         binding.alanButton.initWithConfig(config);
 
@@ -69,6 +77,19 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+    private void requestPermission() {
+
+    }
+
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    //initialise alan
+                } else {
+                    //prompt dialog for permission
+                }
+            });
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
