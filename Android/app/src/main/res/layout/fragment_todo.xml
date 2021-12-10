@@ -14,9 +14,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_todo"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="150dp"
-            android:layout_height="match_parent" />
+            android:paddingBottom="150dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,4 +30,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_round_add"
         app:tint="@color/white" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

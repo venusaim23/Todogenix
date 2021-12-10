@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_title"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage|textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:gravity="top"
             android:hint="@string/task_description"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textCapSentences"
             android:minLines="2" />
     </com.google.android.material.textfield.TextInputLayout>
 

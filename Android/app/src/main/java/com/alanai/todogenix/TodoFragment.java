@@ -44,7 +44,9 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
-
+        tasks.clear();
+        adapter.notifyDataSetChanged();
+        getTasks();
     }
 
     public interface TodoFragmentListener {
@@ -81,7 +83,7 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         binding.swipeRefreshTodo.setColorSchemeResources(R.color.alan_blue);
         binding.swipeRefreshTodo.setOnRefreshListener(this);
-//        binding.swipeRefreshTodo.setRefreshing(true);
+        binding.swipeRefreshTodo.setRefreshing(true);
 
         binding.recyclerViewTodo.setLayoutManager(new LinearLayoutManager(context));
         binding.recyclerViewTodo.setHasFixedSize(true);
@@ -104,7 +106,9 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Task task = snapshot.getValue(Task.class);
                 tasks.add(task);
-                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
+                binding.swipeRefreshTodo.setRefreshing(false);
+                adapter.notifyItemInserted(tasks.size() + 1);
+//                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
