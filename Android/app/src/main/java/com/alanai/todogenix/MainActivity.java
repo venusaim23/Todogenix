@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.alanai.todogenix.Adapters.TaskAdapter;
+import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.HomeFragmentListener, TodoFragment.TodoFragmentListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.HomeFragmentListener, TodoFragment.TodoFragmentListener, TaskAdapter.AdapterInterface {
 
     private ActivityMainBinding binding;
 
@@ -124,5 +126,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void editTask(Task task) {
+        AddTask bottomSheet = new AddTask(this, task);
+        bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
     }
 }

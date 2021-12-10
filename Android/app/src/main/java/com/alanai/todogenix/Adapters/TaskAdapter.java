@@ -1,19 +1,28 @@
 package com.alanai.todogenix.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -22,9 +31,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private Context context;
     private List<Task> tasks;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private DatabaseReference dbRef;
+
+    private AdapterInterface adapterInterface;
+
+    public interface AdapterInterface {
+        void editTask(Task task);
+    }
+
     public TaskAdapter(Context context, List<Task> tasks) {
         this.context = context;
         this.tasks = tasks;
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        dbRef = FirebaseDatabase.getInstance().getReference(mUser.getUid()).child("Tasks");
+
+        if (context instanceof AdapterInterface)
+            adapterInterface = (AdapterInterface) context;
+        else
+            throw new RuntimeException(context.toString() + " must implement AdapterInterface");
     }
 
     @NonNull
@@ -43,6 +71,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         String dateTime = task.getTime() + " " + task.getDate();
         holder.dateTime.setText(dateTime);
+
+        //todo check/uncheck
+        //todo date/time - duration
     }
 
     @Override
@@ -50,7 +81,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return tasks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public CardView todoCard;
         public CheckBox check;
@@ -72,6 +103,55 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             tag = itemView.findViewById(R.id.tag_tv_todo);
             timerIcon = itemView.findViewById(R.id.timer_icon_todo);
             highlight = itemView.findViewById(R.id.todo_highlight_bar);
+
+            todoCard.setOnCreateContextMenuListener(this);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.add(this.getAdapterPosition(), 100, 0, "Edit");
+            menu.add(this.getAdapterPosition(), 101, 1, "Delete");
+        }
+    }
+
+    public void editTask(int position) {
+        //edit item
+        adapterInterface.editTask(tasks.get(position));
+        notifyItemChanged(position);
+    }
+
+    public void deleteTask(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Delete task?")
+                .setMessage("Are you sure? Do you want to delete the task?")
+                .setCancelable(true)
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Task t = tasks.get(position);
+                        DatabaseReference ref = dbRef.child(t.getTaskID());
+                        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    tasks.remove(t);
+                                    notifyDataSetChanged();
+                                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                                } else
+                                    Toast.makeText(context, "Could not delete: " +
+                                            task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        dialog.cancel();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

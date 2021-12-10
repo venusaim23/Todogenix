@@ -2,7 +2,9 @@ package com.alanai.todogenix;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -91,6 +93,7 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         binding.recyclerViewTodo.setAdapter(adapter);
 
         getTasks();
+        setTimer();
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +101,18 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 listener.addTask();
             }
         });
+    }
+
+    private void setTimer() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (tasks.isEmpty()) {
+                    binding.swipeRefreshTodo.setRefreshing(false);
+                    //todo show empty
+                }
+            }
+        }, 4000);
     }
 
     private void getTasks() {
@@ -108,17 +123,33 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 tasks.add(task);
                 binding.swipeRefreshTodo.setRefreshing(false);
                 adapter.notifyItemInserted(tasks.size() + 1);
+                //todo hide empty
 //                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                Task task = snapshot.getValue(Task.class);
+                if (task != null) {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        if (tasks.get(i).getTaskID().equals(task.getTaskID())) {
+                            tasks.set(i, task);
+                            adapter.notifyItemChanged(i);
+                            break;
+                        }
+                    }
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                Task task = snapshot.getValue(Task.class);
+                if (task != null) {
+                    int i = tasks.indexOf(task);
+                    tasks.remove(task);
+                    adapter.notifyItemRemoved(i);
+                    //todo check and show empty
+                }
             }
 
             @Override
@@ -131,6 +162,22 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case 100:
+                adapter.editTask(item.getGroupId());
+                return true;
+
+            case 101:
+                adapter.deleteTask(item.getGroupId());
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     @Override

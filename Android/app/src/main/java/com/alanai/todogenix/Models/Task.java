@@ -1,6 +1,7 @@
 package com.alanai.todogenix.Models;
 
 public class Task {
+    private String taskID;
     private String title;
     private String description;
     private String type;
@@ -15,7 +16,8 @@ public class Task {
     }
 
     //Explorer
-    public Task(String title, String description, String type, long timeStamp) {
+    public Task(String taskID, String title, String description, String type, long timeStamp) {
+        this.taskID = taskID;
         this.title = title;
         this.description = description;
         this.type = type;
@@ -24,7 +26,8 @@ public class Task {
     }
 
     //Flexible or Strict
-    public Task(String title, String description, String type, String date, String time, long timeStamp) {
+    public Task(String taskID, String title, String description, String type, String date, String time, long timeStamp) {
+        this.taskID = taskID;
         this.title = title;
         this.description = description;
         this.type = type;
@@ -35,7 +38,8 @@ public class Task {
     }
 
     //with duration
-    public Task(String title, String description, String type, int duration, String date, String time, long timeStamp) {
+    public Task(String taskID, String title, String description, String type, int duration, String date, String time, long timeStamp) {
+        this.taskID = taskID;
         this.title = title;
         this.description = description;
         this.type = type;
@@ -44,6 +48,14 @@ public class Task {
         this.time = time;
         this.timeStamp = timeStamp;
         this.complete = false;
+    }
+
+    public String getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(String taskID) {
+        this.taskID = taskID;
     }
 
     public String getTitle() {

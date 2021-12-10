@@ -7,9 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -46,8 +44,15 @@ public class AddTask extends BottomSheetDialogFragment {
     private String title, description, taskType, date, time;
     private String[] taskTypes;
 
+    private Task task;
+
     public AddTask(Context context) {
         this.context = context;
+    }
+
+    public AddTask(Context context, Task task) {
+        this.context = context;
+        this.task = task;
     }
 
     @Override
@@ -104,14 +109,27 @@ public class AddTask extends BottomSheetDialogFragment {
                 getData();
 //                Toast.makeText(context, "Add button clicked", Toast.LENGTH_SHORT).show();
                 binding.progressBarAddTask.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.progressBarAddTask.setVisibility(View.INVISIBLE);
-                    }
-                }, 2000);
             }
         });
+
+        binding.cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        if (task != null) {
+            setValues();
+        }
+    }
+
+    private void setValues() {
+        binding.taskHeadingEt.setText(task.getTitle());
+        binding.taskDescEt.setText(task.getDescription());
+        binding.spinner.setSelection(Arrays.asList(taskTypes).indexOf(task.getType()));
+        binding.dateEtTask.setText(task.getDate());
+        binding.timeEtTask.setText(task.getTime());
     }
 
     private void getData() {
@@ -162,19 +180,29 @@ public class AddTask extends BottomSheetDialogFragment {
                 return;
             }
         }
+        //todo set date and time picker
         //date and time regex
 
         updateDateAndTime();
     }
 
     private void updateDateAndTime() {
-        Task task = new Task(title, description, taskType, date, time, System.currentTimeMillis());
-        dbRef.push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DatabaseReference ref;
+        if (task != null) {
+            ref = dbRef.child(task.getTaskID());
+            task = new Task(task.getTaskID(), title, description, taskType, date, time, task.getTimeStamp());
+        } else {
+            ref = dbRef.push();
+            String key = ref.getKey();
+            task = new Task(key, title, description, taskType, date, time, System.currentTimeMillis());
+        }
+        ref.setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                if (task.isSuccessful())
+                if (task.isSuccessful()) {
                     Toast.makeText(context, "Task added", Toast.LENGTH_SHORT).show();
-                else {
+                    dismiss();
+                } else {
                     if (task.getException() != null)
                         Toast.makeText(context, "Task upload failed: " + task.getException().toString(),
                                 Toast.LENGTH_SHORT).show();
