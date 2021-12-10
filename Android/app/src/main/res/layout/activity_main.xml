@@ -32,7 +32,15 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/floating_action_button"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_round_add"
         app:tint="@color/white" />
+
+    <com.alan.alansdk.button.AlanButton
+        android:id="@+id/alan_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:button_horizontal_align="right" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
