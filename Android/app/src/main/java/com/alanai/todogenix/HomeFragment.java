@@ -1,6 +1,7 @@
 package com.alanai.todogenix;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ public class HomeFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.cardHeading.setPaintFlags(binding.cardHeading.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         binding.todoCard.setOnClickListener(new View.OnClickListener() {
             @Override
