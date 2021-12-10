@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "266205323379",
+    "firebase_url": "https://todogenix-da187-default-rtdb.firebaseio.com",
+    "project_id": "todogenix-da187",
+    "storage_bucket": "todogenix-da187.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266205323379:android:bd9ca6068a55fd0a600a06",
+        "android_client_info": {
+          "package_name": "com.alanai.todogenix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266205323379-aqkt8bt7gj9csp4f7noij2tvimg8b65l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbYfZBtiWwvhcHP3IPB23m445Tp3FYkEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266205323379-aqkt8bt7gj9csp4f7noij2tvimg8b65l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
