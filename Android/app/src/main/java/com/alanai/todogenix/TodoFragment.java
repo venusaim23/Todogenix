@@ -5,19 +5,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.alanai.todogenix.Adapters.TaskAdapter;
+import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.databinding.FragmentTodoBinding;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private TodoFragmentListener listener;
     private FragmentTodoBinding binding;
+
+    private DatabaseReference dbRef;
+
+    private List<Task> tasks;
+    private TaskAdapter adapter;
 
     private Context context;
 
@@ -44,6 +61,12 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentTodoBinding.inflate(inflater, container, false);
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Tasks");
+
+        tasks = new ArrayList<>();
+        adapter = new TaskAdapter(context, tasks);
+
         return binding.getRoot();
 
     }
@@ -58,11 +81,45 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         binding.recyclerViewTodo.setLayoutManager(new LinearLayoutManager(context));
         binding.recyclerViewTodo.setHasFixedSize(true);
         binding.recyclerViewTodo.setItemAnimator(new DefaultItemAnimator());
+        binding.recyclerViewTodo.setAdapter(adapter);
+
+        getTasks();
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.addTask();
+            }
+        });
+    }
+
+    private void getTasks() {
+        dbRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Task task = snapshot.getValue(Task.class);
+                tasks.add(task);
+                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

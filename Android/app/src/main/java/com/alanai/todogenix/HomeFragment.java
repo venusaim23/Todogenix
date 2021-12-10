@@ -37,6 +37,13 @@ public class HomeFragment extends Fragment {
                 fragmentListener.openTodo();
             }
         });
+
+        binding.timerCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo open timer
+            }
+        });
     }
 
     @Override

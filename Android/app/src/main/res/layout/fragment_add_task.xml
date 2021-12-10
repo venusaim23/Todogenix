@@ -161,6 +161,16 @@
         android:text="@string/add"
         android:textColor="@color/white" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/add_task_button"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/add_task_button"
+        android:indeterminateTint="@color/alan_blue"
+        android:visibility="invisible" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
