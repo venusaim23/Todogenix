@@ -17,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.alanai.todogenix.Adapters.TaskAdapter;
 import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.databinding.FragmentTodoBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +33,8 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private TodoFragmentListener listener;
     private FragmentTodoBinding binding;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private DatabaseReference dbRef;
 
     private List<Task> tasks;
@@ -62,13 +66,14 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         binding = FragmentTodoBinding.inflate(inflater, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Tasks");
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        dbRef = FirebaseDatabase.getInstance().getReference(mUser.getUid()).child("Tasks");
 
         tasks = new ArrayList<>();
         adapter = new TaskAdapter(context, tasks);
 
         return binding.getRoot();
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

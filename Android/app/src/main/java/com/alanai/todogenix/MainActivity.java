@@ -1,6 +1,7 @@
 package com.alanai.todogenix;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -15,8 +16,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.alanai.todogenix.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     private TodoFragment todoFragment;
     private FragmentManager manager;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
     private static final String SDK_KEY = "f5e57554206244ac1dc9a0d5cd74e85d2e956eca572e1d8b807a3e2338fdd0dc/stage";
 
     @Override
@@ -38,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         homeFragment = new HomeFragment();
         todoFragment = new TodoFragment();
@@ -70,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         binding.alanButton.registerCallback(alanCallback);
     }
 
-    private void requestPermission() {
-
-    }
-
     private ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -94,25 +101,28 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_sign_out) {
+            mAuth.signOut();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

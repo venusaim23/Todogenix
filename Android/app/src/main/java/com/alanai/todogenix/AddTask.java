@@ -26,6 +26,8 @@ import com.alanai.todogenix.databinding.FragmentAddTaskBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,6 +39,8 @@ public class AddTask extends BottomSheetDialogFragment {
 
     private Context context;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private DatabaseReference dbRef;
 
     private String title, description, taskType, date, time;
@@ -51,7 +55,9 @@ public class AddTask extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         binding = FragmentAddTaskBinding.inflate(inflater, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Tasks");
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        dbRef = FirebaseDatabase.getInstance().getReference(mUser.getUid()).child("Tasks");
 
         taskTypes = getResources().getStringArray(R.array.task_types);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_layout, taskTypes);

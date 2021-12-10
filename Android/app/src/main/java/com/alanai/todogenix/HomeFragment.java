@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.cardHeading.setPaintFlags(binding.cardHeading.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//        binding.cardHeading.setPaintFlags(binding.cardHeading.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         binding.todoCard.setOnClickListener(new View.OnClickListener() {
             @Override
