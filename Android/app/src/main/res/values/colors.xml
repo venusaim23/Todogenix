@@ -11,14 +11,17 @@
     <color name="red">#FFEA5353</color>
     <color name="cyan">#FF45D3D3</color>
     <color name="orange">#FFFCAF4A</color>
-    <color name="blue">#FF549ef2</color>
+    <color name="blue">#FF549EF2</color>
 
-    <color name="very_dark_blue">#FF4c4e61</color>
-    <color name="dark_blue_bg">#114c4e61</color>
-    <color name="grayish_blue">#FFa3a5ae</color>
+    <color name="very_dark_blue">#FF4C4E61</color>
+    <color name="dark_blue_bg">#114C4E61</color>
+    <color name="grayish_blue">#FFA3A5AE</color>
     <color name="very_light_gray">#FFFAFAFA</color>
 
     <color name="alan_blue">#FF006DEA</color>
     <color name="alan_dark_blue">#FF0D1940</color>
     <color name="alan_dark_blue_status">#FF004593</color>
+
+    <color name="todo_tag_bg_blue">#201F85F6</color>
+    <color name="todo_tag_text_blue">#FF004593</color>
 </resources>

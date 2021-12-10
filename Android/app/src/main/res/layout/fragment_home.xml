@@ -226,7 +226,7 @@
                     android:layout_height="80dp"
                     android:layout_margin="10dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/success" />
+                    app:srcCompat="@drawable/quote_icon" />
 
                 <TextView
                     android:id="@+id/quote_title_tv"

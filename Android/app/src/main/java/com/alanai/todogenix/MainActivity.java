@@ -21,7 +21,7 @@ import com.alanai.todogenix.databinding.ActivityMainBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.HomeFragmentListener, TodoFragment.TodoFragmentListener {
 
     private ActivityMainBinding binding;
 
@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         binding.alanButton.registerCallback(alanCallback);
-
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     private void requestPermission() {
@@ -90,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
                     //prompt dialog for permission
                 }
             });
+
+    @Override
+    public void openTodo() {
+        manager.beginTransaction().replace(R.id.frame_layout_main, todoFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void addTask() {
+        AddTask bottomSheet = new AddTask(this);
+        bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
+    }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {

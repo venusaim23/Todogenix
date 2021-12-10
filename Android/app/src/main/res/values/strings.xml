@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Todogenix</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="task_types">
+        <item>Explorer</item>
+        <item>Flexible</item>
+        <item>Strict</item>
+    </string-array>
+
     <string name="floating_action_button">Floating action button</string>
     <string name="weather_icon">Weather Icon</string>
     <string name="todo_list">ToDo List</string>
@@ -9,4 +16,13 @@
     <string name="timer">Timer</string>
     <string name="timer_icon">Timer icon</string>
     <string name="quote_of_the_day">Quote of the day</string>
+    <string name="set_timer">Set timer</string>
+    <string name="add_task">Add Task</string>
+    <string name="task_title">Title</string>
+    <string name="task_description">Description</string>
+    <string name="task_type">Task type:</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="add">Add</string>
+    <string name="cancel">CANCEL</string>
 </resources>

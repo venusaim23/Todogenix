@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/todo_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/todo_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/todo_heading_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/date_time_tv"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Task Heading Brief"
+                android:textColor="@color/very_dark_blue"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/date_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="23:59 31/12/21"
+                android:textColor="@color/grayish_blue"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/todo_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/todo_heading_tv"
+                android:layout_alignStart="@+id/todo_heading_tv"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Task description Lorem ipsum doe sit emet por dun faef ajfg ksdjn sjknf"
+                android:textColor="@color/grayish_blue" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tag_card_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/todo_description_tv"
+                android:layout_alignStart="@+id/todo_description_tv"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/todo_tag_bg_blue"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tag_tv_todo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:text="Explorer"
+                    android:textColor="@color/todo_tag_text_blue" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/timer_icon_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tag_card_todo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:contentDescription="@string/set_timer"
+                app:srcCompat="@drawable/ic_round_timer" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/todo_highlight_bar"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@+id/tag_card_todo"
+                android:backgroundTint="@color/blue"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

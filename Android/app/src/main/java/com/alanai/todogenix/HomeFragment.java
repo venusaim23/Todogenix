@@ -1,5 +1,6 @@
 package com.alanai.todogenix;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,12 @@ import com.alanai.todogenix.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
+    private HomeFragmentListener fragmentListener;
     private FragmentHomeBinding binding;
+
+    public interface HomeFragmentListener {
+        void openTodo();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class HomeFragment extends Fragment {
         binding.todoCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open todoList
+                fragmentListener.openTodo();
             }
         });
     }
@@ -37,5 +43,20 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof HomeFragmentListener)
+            fragmentListener = (HomeFragmentListener) context;
+        else
+            throw new RuntimeException(context.toString() + " must implement HomeFragmentListener");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        fragmentListener = null;
     }
 }
