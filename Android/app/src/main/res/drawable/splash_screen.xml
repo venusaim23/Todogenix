@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/white" />
+    <item
+        android:width="200dp"
+        android:height="233.33dp"
+        android:drawable="@drawable/ic_tg_text"
+        android:gravity="center" />
+</layer-list>

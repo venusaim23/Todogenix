@@ -5,6 +5,7 @@
     android:id="@+id/layout_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".LoginActivity">
 
     <ScrollView
@@ -22,16 +23,16 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="175dp"
-                android:layout_height="179dp"
-                android:layout_marginTop="80dp"
+                android:id="@+id/logo_login_img"
+                android:layout_width="200dp"
+                android:layout_height="233dp"
+                android:layout_marginTop="60dp"
+                android:contentDescription="@string/app_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_todogenix_no_text"
-                android:contentDescription="@string/app_logo" />
+                app:srcCompat="@drawable/ic_tg_text" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_til_login"
@@ -49,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+                app:layout_constraintTop_toBottomOf="@+id/logo_login_img">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_et_login"
@@ -91,7 +92,7 @@
                 android:id="@+id/sign_in_btn"
                 android:layout_width="250dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/sign_in"
                 android:textSize="16sp"
@@ -140,10 +141,13 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="40dp"
+                android:contentDescription="@string/alan_logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/alan_logo"
-                android:contentDescription="@string/alan_logo" />
+                app:layout_constraintTop_toBottomOf="@+id/create_acc_btn"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/alan_logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
