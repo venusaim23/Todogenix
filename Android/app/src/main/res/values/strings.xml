@@ -46,8 +46,9 @@
     <string name="take_a_long_break">Take a long break</string>
     <string name="stop">Stop</string>
     <string name="resume_work">Resume Work</string>
-    <string name="good_morning">Good morning,\n</string>
-    <string name="sun_emote">☀️</string>
+    <string name="good_morning">Good morning</string>
+    <string name="sun_emote"> ☀️</string>
+    <string name="default_greeting">Good morning ☀️</string>
     <string name="profile_photo">Profile photo</string>
     <string name="name">Name</string>
     <string name="re_enter_password">Re-enter password</string>

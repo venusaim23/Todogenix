@@ -17,7 +17,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_semi_bold"
-            android:text="Good morning,\nVenu ☀️"
+            android:text="@string/default_greeting"
             android:textColor="@color/very_dark_blue"
             android:textSize="26sp" />
 

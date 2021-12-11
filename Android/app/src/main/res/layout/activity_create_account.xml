@@ -21,12 +21,12 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="30dp"
+                android:contentDescription="@string/profile_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_round_account_circle"
-                android:contentDescription="@string/profile_photo" />
+                app:srcCompat="@drawable/ic_round_account_circle" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name_til_sign"
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:inputType="textPersonName" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
