@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_todogenix_no_text);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();

@@ -42,4 +42,10 @@
     <string name="pause_button">Pause button</string>
     <string name="stop_button">Stop button</string>
     <string name="timer_initial">00:00:00</string>
+    <string name="take_a_short_break">Take a short break</string>
+    <string name="start">Start</string>
+    <string name="separator">Separator</string>
+    <string name="take_a_long_break">Take a long break</string>
+    <string name="stop">Stop</string>
+    <string name="resume_work">Resume Work</string>
 </resources>

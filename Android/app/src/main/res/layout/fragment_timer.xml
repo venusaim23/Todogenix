@@ -7,54 +7,195 @@
     android:fillViewport="true"
     tools:context=".TimerFragment">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/breaks_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="25dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/short_break_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@+id/short_break_card"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="@string/take_a_short_break"
+                    android:textColor="@color/very_dark_blue"
+                    android:textSize="18sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/short_break_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/short_break_title"
+                    android:layout_alignBottom="@+id/short_break_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/todo_tag_bg_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:id="@+id/short_break_tag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/start"
+                        android:textColor="@color/todo_tag_text_blue" />
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/break_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/short_break_title"
+                    android:layout_marginHorizontal="25dp"
+                    android:contentDescription="@string/separator"
+                    android:src="@drawable/separator" />
+
+                <TextView
+                    android:id="@+id/long_break_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/break_separator"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@+id/short_break_card"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="@string/take_a_long_break"
+                    android:textColor="@color/very_dark_blue"
+                    android:textSize="18sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/long_break_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/long_break_title"
+                    android:layout_alignBottom="@+id/long_break_title"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/todo_tag_bg_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:id="@+id/long_break_tag_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/start"
+                        android:textColor="@color/todo_tag_text_blue" />
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <ProgressBar
             android:id="@+id/progress_timer"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
             android:indeterminate="false"
             android:progress="100"
-            android:progressDrawable="@drawable/timer_ring" />
+            android:progressDrawable="@drawable/timer_ring"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/breaks_card" />
 
         <TextView
             android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/progress_timer"
-            android:layout_alignTop="@+id/progress_timer"
-            android:layout_alignEnd="@+id/progress_timer"
-            android:layout_alignBottom="@+id/progress_timer"
             android:layout_marginHorizontal="40dp"
             android:layout_marginVertical="40dp"
             android:fontFamily="@font/poppins_light"
-            android:gravity="center"
             android:text="@string/timer_initial"
             android:textColor="@color/very_dark_blue"
-            android:textSize="50sp" />
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_timer"
+            app:layout_constraintEnd_toEndOf="@+id/progress_timer"
+            app:layout_constraintStart_toStartOf="@+id/progress_timer"
+            app:layout_constraintTop_toTopOf="@+id/progress_timer" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/resume_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/todo_tag_bg_blue"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_timer">
+
+            <TextView
+                android:id="@+id/resume_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="@string/resume_work"
+                android:textColor="@color/todo_tag_text_blue"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:id="@+id/pause_btn_timer"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
             android:background="@drawable/play_button_shape"
             android:contentDescription="@string/pause_or_play_button"
             android:elevation="10dp"
             android:src="@drawable/ic_round_pause"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resume_card"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resume_card"
+            app:layout_constraintVertical_bias="1.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -94,5 +235,5 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
