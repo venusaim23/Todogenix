@@ -96,17 +96,79 @@
         android:visibility="gone"
         app:cardElevation="0dp">
 
-        <TableRow
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date_til_task"
+            <TableRow
+                android:id="@+id/date_time_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_weight="5"
+                android:weightSum="10">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/date_til_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_weight="5"
+                    app:boxBackgroundColor="@color/dark_blue_bg"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/date_et_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="@string/date" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/time_til_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_weight="5"
+                    app:boxBackgroundColor="@color/dark_blue_bg"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/time_et_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="@string/time" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/set_date_time_img"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_weight="2"
+                    android:contentDescription="@string/set_date_and_time_icon"
+                    app:srcCompat="@drawable/ic_calendar" />
+            </TableRow>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/duration_til_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date_time_row"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="10dp"
                 app:boxBackgroundColor="@color/dark_blue_bg"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -116,34 +178,13 @@
                 app:boxStrokeWidthFocused="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/date_et_task"
+                    android:id="@+id/duration_et_task"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date" />
+                    android:hint="@string/duration"
+                    android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/time_til_task"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="25dp"
-                android:layout_weight="5"
-                app:boxBackgroundColor="@color/dark_blue_bg"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/time_et_task"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/time" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </TableRow>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <Button
@@ -169,7 +210,7 @@
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@+id/add_task_button"
         android:indeterminateTint="@color/alan_blue"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/cancel_tv"

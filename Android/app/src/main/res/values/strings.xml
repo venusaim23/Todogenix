@@ -32,4 +32,6 @@
     <string name="powered_by">Powered by</string>
     <string name="sign_out">Sign out</string>
     <string name="due">Due:</string>
+    <string name="duration">Duration</string>
+    <string name="set_date_and_time_icon">Set date and time icon</string>
 </resources>

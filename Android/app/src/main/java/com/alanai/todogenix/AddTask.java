@@ -2,6 +2,8 @@ package com.alanai.todogenix;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,13 +12,16 @@ import androidx.annotation.Nullable;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.alanai.todogenix.Models.Task;
@@ -30,8 +35,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
-public class AddTask extends BottomSheetDialogFragment {
+public class AddTask extends BottomSheetDialogFragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private FragmentAddTaskBinding binding;
 
@@ -95,6 +101,23 @@ public class AddTask extends BottomSheetDialogFragment {
             }
         });
 
+        binding.setDateTimeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                binding.dateTilTask.setError(null);
+                binding.timeTilTask.setError(null);
+
+                Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                DatePickerDialog dialog = new DatePickerDialog(context, AddTask.this,
+                        year, month, day);
+                dialog.show();
+            }
+        });
+
         binding.layoutAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +145,25 @@ public class AddTask extends BottomSheetDialogFragment {
         if (task != null) {
             setValues();
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        date = dayOfMonth + "/" + month + "/" + year;
+        binding.dateEtTask.setText(date);
+
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int min = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, AddTask.this,
+                hour, min, DateFormat.is24HourFormat(context));
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        time = hourOfDay + ":" + minute;
+        binding.timeEtTask.setText(time);
     }
 
     private void setValues() {
@@ -161,27 +203,37 @@ public class AddTask extends BottomSheetDialogFragment {
             if (binding.dateEtTask.getText() != null) {
                 date = binding.dateEtTask.getText().toString().trim();
                 if (date.isEmpty()) {
-                    layoutErrorManager(binding.dateTilTask, binding.dateEtTask, "Required");
+//                    layoutErrorManager(binding.dateTilTask, binding.dateEtTask, "Required");
+                    binding.dateTilTask.setError("Required");
+                    binding.dateEtTask.requestFocus();
+                    binding.progressBarAddTask.setVisibility(View.GONE);
                     return;
                 }
             } else {
-                layoutErrorManager(binding.dateTilTask, binding.dateEtTask, "Required");
+//                layoutErrorManager(binding.dateTilTask, binding.dateEtTask, "Required");
+                binding.dateTilTask.setError("Required");
+                binding.dateEtTask.requestFocus();
+                binding.progressBarAddTask.setVisibility(View.GONE);
                 return;
             }
 
             if (binding.timeEtTask.getText() != null) {
                 time = binding.timeEtTask.getText().toString().trim();
                 if (time.isEmpty()) {
-                    layoutErrorManager(binding.timeTilTask, binding.timeEtTask, "Required");
+//                    layoutErrorManager(binding.timeTilTask, binding.timeEtTask, "Required");
+                    binding.timeTilTask.setError("Required");
+                    binding.timeEtTask.requestFocus();
+                    binding.progressBarAddTask.setVisibility(View.GONE);
                     return;
                 }
             } else {
-                layoutErrorManager(binding.timeTilTask, binding.timeEtTask, "Required");
+//                layoutErrorManager(binding.timeTilTask, binding.timeEtTask, "Required");
+                binding.timeTilTask.setError("Required");
+                binding.timeEtTask.requestFocus();
+                binding.progressBarAddTask.setVisibility(View.GONE);
                 return;
             }
         }
-        //todo set date and time picker
-        //date and time regex
 
         updateDateAndTime();
     }
@@ -201,13 +253,17 @@ public class AddTask extends BottomSheetDialogFragment {
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Task added", Toast.LENGTH_SHORT).show();
+                    binding.progressBarAddTask.setVisibility(View.GONE);
                     dismiss();
                 } else {
-                    if (task.getException() != null)
+                    if (task.getException() != null) {
                         Toast.makeText(context, "Task upload failed: " + task.getException().toString(),
                                 Toast.LENGTH_SHORT).show();
-                    else
+                        binding.progressBarAddTask.setVisibility(View.GONE);
+                    } else {
                         Toast.makeText(context, "Task could not be added", Toast.LENGTH_SHORT).show();
+                        binding.progressBarAddTask.setVisibility(View.GONE);
+                    }
                 }
             }
         });
@@ -215,6 +271,7 @@ public class AddTask extends BottomSheetDialogFragment {
 
     private void layoutErrorManager(TextInputLayout layout, EditText editText, String error) {
         layout.setError(error);
+        binding.progressBarAddTask.setVisibility(View.GONE); //not disappearing
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

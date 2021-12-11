@@ -78,10 +78,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         String dateTime = date + " " + time;
         holder.dateTime.setText(dateTime);
 
+        //todo set duration in hours
+        String duration = "(" +  task.getDuration() + " min)";
+
         if (task.getDate() != null) {
             if (!task.getDate().isEmpty() && !task.getDate().equals("")) {
                 holder.dueTV.setVisibility(View.VISIBLE);
-                String taskDue = "Due: " + task.getTime() + " " + task.getDate();
+                String taskDue = "Due: " + task.getTime() + " " + task.getDate() + " " + duration;
                 holder.dueTV.setText(taskDue);
             }
         }
