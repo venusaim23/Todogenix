@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
     private HomeFragment homeFragment;
     private TodoFragment todoFragment;
+    private TimerFragment timerFragment;
     private FragmentManager manager;
 
     private FirebaseAuth mAuth;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
         homeFragment = new HomeFragment();
         todoFragment = new TodoFragment();
+        timerFragment = new TimerFragment();
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.frame_layout_main, homeFragment).commit();
 
@@ -98,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     @Override
+    public void openTimer() {
+        manager.beginTransaction().replace(R.id.frame_layout_main, timerFragment).addToBackStack(null).commit();
+    }
+
+    @Override
     public void addTask() {
         AddTask bottomSheet = new AddTask(this);
         bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
@@ -123,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;
+        }
+
+        if (id == R.id.action_settings) {
+            //open settings dialog
         }
 
         return super.onOptionsItemSelected(item);

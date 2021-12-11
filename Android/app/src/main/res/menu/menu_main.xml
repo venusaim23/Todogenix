@@ -2,9 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.alanai.todogenix.MainActivity">
+
+    <item android:id="@+id/action_settings"
+        android:orderInCategory="500"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_round_settings" />
+
     <item
         android:id="@+id/action_sign_out"
-        android:orderInCategory="100"
+        android:orderInCategory="501"
         android:title="@string/sign_out"
         app:showAsAction="never" />
 </menu>

@@ -34,4 +34,12 @@
     <string name="due">Due:</string>
     <string name="duration">Duration</string>
     <string name="set_date_and_time_icon">Set date and time icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pause_or_play_button">Pause or play button</string>
+    <string name="app_logo">App logo</string>
+    <string name="alan_logo">Alan logo</string>
+    <string name="pause_button">Pause button</string>
+    <string name="stop_button">Stop button</string>
+    <string name="timer_initial">00:00:00</string>
 </resources>
