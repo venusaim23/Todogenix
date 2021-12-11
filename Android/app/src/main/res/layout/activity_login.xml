@@ -23,14 +23,15 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="100dp"
+                android:layout_width="175dp"
+                android:layout_height="179dp"
+                android:layout_marginTop="80dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/alan_logo" />
+                app:srcCompat="@drawable/ic_todogenix_no_text"
+                android:contentDescription="@string/app_logo" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_til_login"
@@ -141,7 +142,8 @@
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/alan_logo" />
+                app:srcCompat="@drawable/alan_logo"
+                android:contentDescription="@string/alan_logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
