@@ -10,10 +10,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/greeting_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Good morning,\nVenu ☀️"
+            android:textColor="@color/very_dark_blue"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:id="@+id/home_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/greeting_tv"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/separator"
+            android:src="@drawable/separator" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/weather_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/home_separator"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"

@@ -34,8 +34,6 @@
     <string name="due">Due:</string>
     <string name="duration">Duration</string>
     <string name="set_date_and_time_icon">Set date and time icon</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pause_or_play_button">Pause or play button</string>
     <string name="app_logo">App logo</string>
     <string name="alan_logo">Alan logo</string>
@@ -48,4 +46,6 @@
     <string name="take_a_long_break">Take a long break</string>
     <string name="stop">Stop</string>
     <string name="resume_work">Resume Work</string>
+    <string name="good_morning">Good morning,\n</string>
+    <string name="sun_emote">☀️</string>
 </resources>
