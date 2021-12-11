@@ -121,7 +121,7 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Task task = snapshot.getValue(Task.class);
                 if (task != null) {
-                    if (task.isComplete())
+                    if (!task.isComplete())
                         tasks.add(0, task);
                     else
                         tasks.add(task);
@@ -154,7 +154,8 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 if (task != null) {
                     int i = tasks.indexOf(task);
                     tasks.remove(task);
-                    adapter.notifyItemRemoved(i);
+//                    adapter.notifyItemRemoved(i);
+                    adapter.notifyDataSetChanged();
                     //todo check and show empty
                 }
             }

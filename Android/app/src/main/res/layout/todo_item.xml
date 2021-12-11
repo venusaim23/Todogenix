@@ -70,7 +70,6 @@
                 android:layout_below="@+id/todo_description_tv"
                 android:layout_alignStart="@+id/todo_description_tv"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
                 android:backgroundTint="@color/todo_tag_bg_blue"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp">
@@ -105,16 +104,16 @@
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/poppins_extra_light"
                 android:text="@string/due"
-                android:visibility="invisible"
                 android:textColor="@color/very_dark_blue"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/todo_highlight_bar"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_below="@+id/due_tv_todo"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/blue"
                 android:visibility="invisible" />
         </RelativeLayout>

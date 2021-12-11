@@ -89,7 +89,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.check.setChecked(task.isComplete());
         if (holder.check.isChecked()) {
             holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
+//            holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
         }
 
         holder.check.setOnClickListener(new View.OnClickListener() {
@@ -97,19 +97,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             public void onClick(View v) {
                 if (holder.check.isChecked()) {
                     holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
+//                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
                 } else {
                     holder.title.setPaintFlags(holder.title.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.white));
+//                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.white));
                 }
                 task.setComplete(holder.check.isChecked());
                 DatabaseReference ref = dbRef.child(task.getTaskID());
                 ref.setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                        if (task.isSuccessful())
+                        if (task.isSuccessful()) {
                             Toast.makeText(context, "Task updated", Toast.LENGTH_SHORT).show();
-                        else
+                            notifyDataSetChanged();
+                        } else
                             Toast.makeText(context, "Couldn't update task", Toast.LENGTH_SHORT).show();
                     }
                 });

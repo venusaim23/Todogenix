@@ -68,6 +68,13 @@ public class AddTask extends BottomSheetDialogFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_layout, taskTypes);
         binding.spinner.setAdapter(adapter);
 
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -87,13 +94,6 @@ public class AddTask extends BottomSheetDialogFragment {
 
             }
         });
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         binding.layoutAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
