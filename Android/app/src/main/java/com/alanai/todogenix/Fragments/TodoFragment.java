@@ -1,4 +1,4 @@
-package com.alanai.todogenix;
+package com.alanai.todogenix.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alanai.todogenix.Adapters.TaskAdapter;
 import com.alanai.todogenix.Models.Task;
+import com.alanai.todogenix.R;
 import com.alanai.todogenix.databinding.FragmentTodoBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

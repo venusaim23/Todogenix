@@ -1,4 +1,4 @@
-package com.alanai.todogenix;
+package com.alanai.todogenix.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alanai.todogenix.R;
 import com.alanai.todogenix.databinding.FragmentTimerBinding;
 
 import java.util.Locale;

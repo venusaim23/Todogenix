@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".LoginActivity">
+    tools:context=".Activities.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 android:id="@+id/sign_in_btn"
                 android:layout_width="250dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="@string/sign_in"
                 android:textSize="16sp"

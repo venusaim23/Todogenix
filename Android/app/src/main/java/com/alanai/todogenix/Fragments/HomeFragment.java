@@ -1,4 +1,4 @@
-package com.alanai.todogenix;
+package com.alanai.todogenix.Fragments;
 
 import android.content.Context;
 import android.graphics.Paint;

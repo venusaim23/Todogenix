@@ -1,4 +1,4 @@
-package com.alanai.todogenix;
+package com.alanai.todogenix.Activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,7 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alanai.todogenix.Adapters.TaskAdapter;
+import com.alanai.todogenix.AddTask;
+import com.alanai.todogenix.Fragments.HomeFragment;
 import com.alanai.todogenix.Models.Task;
+import com.alanai.todogenix.R;
+import com.alanai.todogenix.Fragments.TimerFragment;
+import com.alanai.todogenix.Fragments.TodoFragment;
 import com.alanai.todogenix.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
