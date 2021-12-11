@@ -12,8 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/splashScreen">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.CreateAccount"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Todogenix" />
+        <activity
+            android:name=".Activities.LoginActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
