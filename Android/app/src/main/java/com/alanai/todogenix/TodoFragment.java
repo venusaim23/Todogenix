@@ -120,9 +120,15 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Task task = snapshot.getValue(Task.class);
-                tasks.add(task);
-                binding.swipeRefreshTodo.setRefreshing(false);
-                adapter.notifyItemInserted(tasks.size() + 1);
+                if (task != null) {
+                    if (task.isComplete())
+                        tasks.add(0, task);
+                    else
+                        tasks.add(task);
+                    binding.swipeRefreshTodo.setRefreshing(false);
+//                    adapter.notifyItemInserted(tasks.size() + 1);
+                    adapter.notifyDataSetChanged();
+                }
                 //todo hide empty
 //                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
             }
@@ -135,6 +141,7 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         if (tasks.get(i).getTaskID().equals(task.getTaskID())) {
                             tasks.set(i, task);
                             adapter.notifyItemChanged(i);
+                            adapter.notifyDataSetChanged(); //multiple times displayed
                             break;
                         }
                     }

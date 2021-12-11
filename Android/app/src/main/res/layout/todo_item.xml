@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="29dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
         app:cardElevation="15dp">
@@ -95,11 +95,26 @@
                 android:contentDescription="@string/set_timer"
                 app:srcCompat="@drawable/ic_round_timer" />
 
+            <TextView
+                android:id="@+id/due_tv_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timer_icon_todo"
+                android:layout_alignStart="@+id/tag_card_todo"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/poppins_extra_light"
+                android:text="@string/due"
+                android:visibility="invisible"
+                android:textColor="@color/very_dark_blue"
+                android:textSize="16sp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/todo_highlight_bar"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:layout_below="@+id/tag_card_todo"
+                android:layout_below="@+id/due_tv_todo"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/blue"
                 android:visibility="invisible" />
         </RelativeLayout>

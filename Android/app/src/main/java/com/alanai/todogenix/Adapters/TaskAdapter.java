@@ -2,6 +2,7 @@ package com.alanai.todogenix.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -69,11 +71,50 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.description.setText(task.getDescription());
         holder.tag.setText(task.getType());
 
-        String dateTime = task.getTime() + " " + task.getDate();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(task.getTimeStamp());
+        String date = cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR);
+        String time = cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+        String dateTime = date + " " + time;
         holder.dateTime.setText(dateTime);
 
-        //todo check/uncheck
-        //todo date/time - duration
+        if (task.getDate() != null) {
+            if (!task.getDate().isEmpty() && !task.getDate().equals("")) {
+                holder.dueTV.setVisibility(View.VISIBLE);
+                String taskDue = "Due: " + task.getTime() + " " + task.getDate();
+                holder.dueTV.setText(taskDue);
+            }
+        }
+
+        holder.check.setChecked(task.isComplete());
+        if (holder.check.isChecked()) {
+            holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
+        }
+
+        holder.check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.check.isChecked()) {
+                    holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
+                } else {
+                    holder.title.setPaintFlags(holder.title.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.white));
+                }
+                task.setComplete(holder.check.isChecked());
+                DatabaseReference ref = dbRef.child(task.getTaskID());
+                ref.setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                        if (task.isSuccessful())
+                            Toast.makeText(context, "Task updated", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(context, "Couldn't update task", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -91,6 +132,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         public TextView tag;
         public ImageView timerIcon;
         public CardView highlight;
+        public TextView dueTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +145,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             tag = itemView.findViewById(R.id.tag_tv_todo);
             timerIcon = itemView.findViewById(R.id.timer_icon_todo);
             highlight = itemView.findViewById(R.id.todo_highlight_bar);
+            dueTV = itemView.findViewById(R.id.due_tv_todo);
 
             todoCard.setOnCreateContextMenuListener(this);
         }

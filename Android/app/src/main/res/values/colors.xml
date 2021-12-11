@@ -24,4 +24,6 @@
 
     <color name="todo_tag_bg_blue">#201F85F6</color>
     <color name="todo_tag_text_blue">#FF004593</color>
+
+    <color name="gray_completed">#AEAEAE</color>
 </resources>

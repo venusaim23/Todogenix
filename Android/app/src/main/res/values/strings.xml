@@ -31,4 +31,5 @@
     <string name="create_account">Create Account</string>
     <string name="powered_by">Powered by</string>
     <string name="sign_out">Sign out</string>
+    <string name="due">Due:</string>
 </resources>
