@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     private HomeFragment homeFragment;
     private TodoFragment todoFragment;
     private TimerFragment timerFragment;
+    private AddTask bottomSheet;
     private FragmentManager manager;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
     private static final String SDK_KEY = "f5e57554206244ac1dc9a0d5cd74e85d2e956eca572e1d8b807a3e2338fdd0dc/stage";
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-
-        homeFragment = new HomeFragment();
-        todoFragment = new TodoFragment();
-        timerFragment = new TimerFragment();
-        manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.frame_layout_main, homeFragment).commit();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
                     JSONObject data = command.getJSONObject("data");
 //                    Log.d("JSONObject", "Data Object: " + data);
                     String commandName = data.getString("command");
-//                    Log.d("AlanButton", "onCommand: commandName: " + commandName);
+                    executeCommand(commandName, data);
                 } catch (JSONException e) {
                     Log.e("AlanButton", e.getMessage());
                 }
@@ -90,6 +86,127 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         };
 
         binding.alanButton.registerCallback(alanCallback);
+
+        homeFragment = new HomeFragment();
+        todoFragment = new TodoFragment(binding.alanButton);
+        timerFragment = new TimerFragment(binding.alanButton);
+        manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.frame_layout_main, homeFragment).commit();
+
+        bottomSheet = new AddTask(this, binding.alanButton);
+    }
+
+    private void executeCommand(String commandName, JSONObject data) {
+        if (commandName.equals("go_back")) {
+            onBackPressed();
+        }
+
+        if (commandName.equals("exit")) {
+            binding.alanButton.deactivate();
+            finish();
+        }
+
+        if (commandName.equals("log_out")) {
+            logOut();
+        }
+
+        if (commandName.equals("open_todo")) {
+            openTodo();
+        }
+
+        if (commandName.equals("add_task")) {
+            addTask();
+        }
+
+        if (commandName.equals("set_title")) {
+            try {
+                String title = data.getString("title");
+                bottomSheet.addTitle(title);
+            } catch (JSONException e) {
+                Log.e("AlanButton", e.getMessage());
+                binding.alanButton.playText("I'm sorry I'm unable to do this at the moment");
+            }
+        }
+
+        if (commandName.equals("set_description")) {
+            try {
+                String desc = data.getString("description");
+                bottomSheet.addDescription(desc);
+            } catch (JSONException e) {
+                Log.e("AlanButton", e.getMessage());
+                binding.alanButton.playText("I'm sorry I'm unable to do this at the moment");
+            }
+        }
+
+        if (commandName.equals("set_type")) {
+            try {
+                String type = data.getString("type");
+                bottomSheet.setSelection(type);
+            } catch (JSONException e) {
+                Log.e("AlanButton", e.getMessage());
+                binding.alanButton.playText("I'm sorry I'm unable to do this at the moment");
+            }
+        }
+
+        if (commandName.equals("refresh_tasks")) {
+            todoFragment.onRefresh();
+        }
+
+        if (commandName.equals("confirm_add_task")) {
+            bottomSheet.addTask();
+        }
+
+        if (commandName.equals("read_tasks")) {
+            todoFragment.readTasks();
+        }
+
+        if (commandName.equals("highlight_task")) {
+            try {
+                int position = data.getInt("taskNo");
+                todoFragment.readTask(position);
+            } catch (JSONException e) {
+                Log.e("AlanButton", e.getMessage());
+                binding.alanButton.playText("I'm sorry I'm unable to do this at the moment");
+            }
+        }
+
+        if (commandName.equals("check_task")) {
+            try {
+                int position = data.getInt("taskNo");
+                todoFragment.checkTask(position);
+            } catch (JSONException e) {
+                Log.e("AlanButton", e.getMessage());
+                binding.alanButton.playText("I'm sorry I'm unable to do this at the moment");
+            }
+        }
+
+        if (commandName.equals("open_timer")) {
+            openTimer();
+        }
+
+        if (commandName.equals("start_timer")) {
+            timerFragment.startTimer();
+        }
+
+        if (commandName.equals("pause_timer")) {
+            timerFragment.pauseTimer();
+        }
+
+        if (commandName.equals("reset_timer")) {
+            timerFragment.resetTimer();
+        }
+
+        if (commandName.equals("short_break")) {
+            timerFragment.startBreak(true);
+        }
+
+        if (commandName.equals("long_break")) {
+            timerFragment.startBreak(false);
+        }
+
+        if (commandName.equals("stop_break")) {
+            timerFragment.stopBreak();
+        }
     }
 
     private ActivityResultLauncher<String> requestPermissionLauncher =
@@ -112,8 +229,21 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     @Override
+    public void greetUser(String name) {
+        if (count++ == 0) {
+            binding.alanButton.activate();
+            JSONObject object = new JSONObject();
+            try {
+                object.put("userName", name);
+                binding.alanButton.callProjectApi("greetUser", object.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public void addTask() {
-        AddTask bottomSheet = new AddTask(this);
         bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
     }
 
@@ -133,9 +263,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
-            mAuth.signOut();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            logOut();
             return true;
         }
 
@@ -144,6 +272,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logOut() {
+        mAuth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        binding.alanButton.deactivate();
+        finish();
     }
 
     @Override

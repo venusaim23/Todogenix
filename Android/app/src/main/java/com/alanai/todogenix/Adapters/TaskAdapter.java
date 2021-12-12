@@ -95,28 +95,34 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 //            holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
         }
 
-        holder.check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.check.isChecked()) {
-                    holder.title.setPaintFlags(holder.title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//        holder.check.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkUncheck(holder.check, holder.title, position);
+//            }
+//        });
+    }
+
+    public void checkUncheck(CheckBox check, TextView title, int position) {
+        if (check.isChecked()) {
+            title.setPaintFlags(title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.gray_completed));
-                } else {
-                    holder.title.setPaintFlags(holder.title.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        } else {
+            title.setPaintFlags(title.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 //                    holder.todoCard.setBackgroundColor(context.getResources().getColor(R.color.white));
-                }
-                task.setComplete(holder.check.isChecked());
-                DatabaseReference ref = dbRef.child(task.getTaskID());
-                ref.setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(context, "Task updated", Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
-                        } else
-                            Toast.makeText(context, "Couldn't update task", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        }
+
+        Task task = tasks.get(position);
+        task.setComplete(check.isChecked());
+        DatabaseReference ref = dbRef.child(task.getTaskID());
+        ref.setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Task updated", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                } else
+                    Toast.makeText(context, "Couldn't update task", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -152,6 +158,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             dueTV = itemView.findViewById(R.id.due_tv_todo);
 
             todoCard.setOnCreateContextMenuListener(this);
+
+            check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkUncheck(check, title, getAdapterPosition());
+                }
+            });
         }
 
         @Override

@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.alan.alansdk.button.AlanButton;
 import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.databinding.FragmentAddTaskBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,7 @@ public class AddTask extends BottomSheetDialogFragment implements DatePickerDial
     private FragmentAddTaskBinding binding;
 
     private Context context;
+    private AlanButton alanButton;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -52,8 +54,9 @@ public class AddTask extends BottomSheetDialogFragment implements DatePickerDial
 
     private Task task;
 
-    public AddTask(Context context) {
+    public AddTask(Context context, AlanButton alanButton) {
         this.context = context;
+        this.alanButton = alanButton;
     }
 
     public AddTask(Context context, Task task) {
@@ -147,6 +150,30 @@ public class AddTask extends BottomSheetDialogFragment implements DatePickerDial
         }
     }
 
+    public void addTitle(String title) {
+        this.title = title;
+        alanButton.playText("Title added");
+    }
+
+    public void addDescription(String desc) {
+        this.description = desc;
+        alanButton.playText("Description added");
+    }
+
+    public void setSelection(String selection) {
+        //check selection
+        binding.spinner.setSelection(Arrays.asList(taskTypes).indexOf(selection));
+        alanButton.playText("Task type selected");
+    }
+
+    public void addTask() {
+        //confirm
+        alanButton.playText("Ok adding the task");
+
+        getData();
+        binding.progressBarAddTask.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         date = dayOfMonth + "/" + month + "/" + year;
@@ -175,7 +202,7 @@ public class AddTask extends BottomSheetDialogFragment implements DatePickerDial
     }
 
     private void getData() {
-        if (binding.taskHeadingEt.getText() != null) {
+        if (binding.taskHeadingEt.getText() != null && (title == null || title.isEmpty())) {
             title = binding.taskHeadingEt.getText().toString().trim();
             if (title.isEmpty()) {
                 layoutErrorManager(binding.taskHeadingTil, binding.taskHeadingEt, "Required");
@@ -186,15 +213,15 @@ public class AddTask extends BottomSheetDialogFragment implements DatePickerDial
             return;
         }
 
-        if (binding.taskDescEt.getText() != null) {
+        if (binding.taskDescEt.getText() != null && (description == null || description.isEmpty())) {
             description = binding.taskDescEt.getText().toString().trim();
-            if (description.isEmpty()) {
-                layoutErrorManager(binding.taskDescTil, binding.taskDescEt, "Required");
-                return;
-            }
-        } else {
-            layoutErrorManager(binding.taskDescTil, binding.taskDescEt, "Required");
-            return;
+//            if (description.isEmpty()) {
+//                layoutErrorManager(binding.taskDescTil, binding.taskDescEt, "Required");
+//                return;
+//            }
+//        } else {
+//            layoutErrorManager(binding.taskDescTil, binding.taskDescEt, "Required");
+//            return;
         }
 
         taskType = binding.spinner.getSelectedItem().toString();

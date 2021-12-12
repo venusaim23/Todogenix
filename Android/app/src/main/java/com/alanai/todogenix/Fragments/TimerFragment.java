@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alan.alansdk.button.AlanButton;
 import com.alanai.todogenix.R;
 import com.alanai.todogenix.databinding.FragmentTimerBinding;
 
@@ -22,6 +23,7 @@ public class TimerFragment extends Fragment {
     private FragmentTimerBinding binding;
 
     private Context context;
+    private AlanButton alanButton;
 
     private CountDownTimer countDownTimer;
     private CountDownTimer cdtBreak;
@@ -36,6 +38,10 @@ public class TimerFragment extends Fragment {
     private long time = 0;
     //0 - work mode, 1 - short break, 2 - long break
     private int mode = 0;
+
+    public TimerFragment(AlanButton alanButton) {
+        this.alanButton = alanButton;
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -122,8 +128,8 @@ public class TimerFragment extends Fragment {
         });
     }
 
-    private void stopBreak() {
-        //todo notify break stopped
+    public void stopBreak() {
+        alanButton.playText("Resuming the timer");
 
         cdtBreak.cancel();
         if(mode == 1)
@@ -138,8 +144,11 @@ public class TimerFragment extends Fragment {
         startTimer();
     }
 
-    private void startBreak(boolean shortBreak) {
-        //todo notify break started
+    public void startBreak(boolean shortBreak) {
+//        if (mode == 1 && shortBreak)
+//            return;
+
+        alanButton.playText("Your break has started");
 
         pauseTimer();
         binding.playBtnTimer.setVisibility(View.GONE);
@@ -159,14 +168,17 @@ public class TimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                //todo notify break finished
+                alanButton.playText("Your break is over");
                 stopBreak();
             }
         }.start();
     }
 
-    private void startTimer() {
-        //todo notify timer started
+    public void startTimer() {
+//        if (mode == 0)
+//            return;
+
+        alanButton.playText("Your time has begun");
 
         binding.progressTimer.setMax((int) totalWorkTime);
         binding.progressTimer.setProgress((int) totalWorkTime);
@@ -180,7 +192,8 @@ public class TimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                //todo notify timer finished
+                alanButton.playText("Your time is over");
+
                 countDownTimer.cancel();
                 binding.playBtnTimer.setVisibility(View.VISIBLE);
                 binding.pauseBtnTimer.setVisibility(View.GONE);
@@ -191,7 +204,7 @@ public class TimerFragment extends Fragment {
         binding.playBtnTimer.setVisibility(View.GONE);
     }
 
-    private void updateTimer(long remaining) {
+    public void updateTimer(long remaining) {
         int hour = (int) (((remaining / 1000) / 60) / 60);
         int min = (int) ((remaining / 1000) / 60);
         int sec = (int) ((remaining / 1000) % 60);
@@ -202,14 +215,18 @@ public class TimerFragment extends Fragment {
         binding.timeTv.setText(time);
     }
 
-    private void pauseTimer() {
+    public void pauseTimer() {
+        alanButton.playText("Timer paused");
+
         countDownTimer.cancel();
         binding.pauseBtnTimer.setVisibility(View.GONE);
         binding.playBtnTimer.setVisibility(View.VISIBLE);
         binding.stopBtnTimer.setVisibility(View.VISIBLE);
     }
 
-    private void resetTimer() {
+    public void resetTimer() {
+        alanButton.playText("The timer is set again");
+
         remainingWorkTime = totalWorkTime;
         updateTimer(remainingWorkTime);
         binding.stopBtnTimer.setVisibility(View.GONE);

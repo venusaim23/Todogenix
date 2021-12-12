@@ -17,6 +17,7 @@
     <color name="dark_blue_bg">#114C4E61</color>
     <color name="grayish_blue">#FFA3A5AE</color>
     <color name="very_light_gray">#FFFAFAFA</color>
+    <color name="quote_text_color">#FFA3A5AE</color>
 
     <color name="alan_blue">#FF006DEA</color>
     <color name="alan_dark_blue">#FF0D1940</color>

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.alan.alansdk.button.AlanButton;
 import com.alanai.todogenix.Adapters.TaskAdapter;
 import com.alanai.todogenix.Models.Task;
 import com.alanai.todogenix.R;
@@ -44,11 +45,19 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private TaskAdapter adapter;
 
     private Context context;
+    private AlanButton alanButton;
+
+    public TodoFragment(AlanButton alanButton) {
+        this.alanButton = alanButton;
+    }
 
     @Override
     public void onRefresh() {
-        tasks.clear();
+        if (tasks != null)
+            tasks.clear();
         adapter.notifyDataSetChanged();
+        binding.swipeRefreshTodo.setRefreshing(true);
+        setTimer();
         getTasks();
     }
 
@@ -110,10 +119,32 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public void run() {
                 if (tasks.isEmpty()) {
                     binding.swipeRefreshTodo.setRefreshing(false);
-                    //todo show empty
+                    binding.emptyTvTodo.setVisibility(View.VISIBLE);
                 }
             }
         }, 4000);
+    }
+
+    public void readTasks() {
+        if (tasks.size() == 0)
+            alanButton.playText("The list is empty. Try adding a task");
+        else {
+            alanButton.playText("Reading task titles");
+            for (Task task: tasks) {
+                alanButton.playText(task.getTitle());
+                //highlight the task
+            }
+        }
+    }
+
+    public void readTask(int position) {
+        //read task
+        alanButton.playText("Reading task " + position);
+    }
+
+    public void checkTask(int position) {
+        //check task
+        alanButton.playText("I'm very sorry. This feature is under development");
     }
 
     private void getTasks() {
@@ -130,7 +161,7 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 //                    adapter.notifyItemInserted(tasks.size() + 1);
                     adapter.notifyDataSetChanged();
                 }
-                //todo hide empty
+                binding.emptyTvTodo.setVisibility(View.GONE);
 //                Toast.makeText(context, "Task added: " + task.getTitle(), Toast.LENGTH_SHORT).show();
             }
 
@@ -157,7 +188,8 @@ public class TodoFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     tasks.remove(task);
 //                    adapter.notifyItemRemoved(i);
                     adapter.notifyDataSetChanged();
-                    //todo check and show empty
+                    if (tasks.size() == 0)
+                        binding.emptyTvTodo.setVisibility(View.GONE);
                 }
             }
 

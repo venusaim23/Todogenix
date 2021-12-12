@@ -61,7 +61,8 @@
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Task description Lorem ipsum doe sit emet por dun faef ajfg ksdjn sjknf"
-                android:textColor="@color/grayish_blue" />
+                android:textColor="@color/grayish_blue"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/tag_card_todo"

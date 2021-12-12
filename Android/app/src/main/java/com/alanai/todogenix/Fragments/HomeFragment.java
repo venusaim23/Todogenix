@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
     public interface HomeFragmentListener {
         void openTodo();
         void openTimer();
+        void greetUser(String name);
     }
 
     @Override
@@ -60,7 +61,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userDetails = snapshot.getValue(UserDetails.class);
-                Log.d("UserDetails", "Details: " + userDetails.getUid());
                 if (userDetails != null)
                     updateDetails();
             }
@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment {
             String greeting = context.getResources().getString(R.string.good_morning) + ",\n" +
                     userDetails.getName() + context.getResources().getString(R.string.sun_emote);
             binding.greetingTv.setText(greeting);
+            fragmentListener.greetUser(userDetails.getName());
         }
 
         //todo sharedprefs
