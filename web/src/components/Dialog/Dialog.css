@@ -1,0 +1,100 @@
+.add-item-container{
+    /* border:2px solid#006DEA; */
+    /* border-top: 4px solid #006DEA; */
+    background-color: white;
+    border-radius: 6px;
+    position: fixed;
+    right: 530px;
+    bottom: 160px;
+    padding: 10px 15px;
+    width: 310px; 
+    /* 200 185 */
+    height: 330px;
+    z-index: 20;
+    transition: all 0.3s linear;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 2.19);
+}
+
+.auth-input--modify{
+width: 92%;
+}
+
+.add-item-container-explore{
+    width:240px;
+    height: 200px;
+
+}
+
+
+
+::-webkit-datetime-edit { padding: 8px; }
+/* ::-webkit-datetime-edit-fields-wrapper { background: silver; } */
+::-webkit-datetime-edit-text { color: hsl(229, 6%, 66%); padding: 0 0.3em; }
+::-webkit-datetime-edit-month-field { color: hsl(229, 6%, 66%); }
+::-webkit-datetime-edit-day-field { color: hsl(229, 6%, 66%); }
+::-webkit-datetime-edit-year-field { color: hsl(229, 6%, 66%); }
+/* ::-webkit-inner-spin-button { display: none; } */
+/* ::-webkit-calendar-picker-indicator { background: hsl(229, 6%, 66%); } */
+
+.form-h2{
+    margin: 0;
+    color: black !important;
+    opacity: 0.8 !important;
+}
+
+.form-para{
+    margin:0;
+    color: hsl(229, 6%, 66%);
+    font-weight: 400;
+    margin: 0;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.form-input{
+    margin: 10px 0;
+    width: 95%;
+    height: 4vh;
+    border: none;
+    border-bottom: 2px solid black;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.form-input:focus {
+    outline: none;
+    border-bottom: 3px solid #006DEA;
+}
+
+.form-button{
+    margin: 5px;
+    text-align: center;
+    background-color: #006DEA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1.2;
+    cursor: pointer;
+    width: 40%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.form-div{
+    /* width: 40%; */
+    display: inline-block;
+    background-color: transparent;
+    color:#006DEA;
+    /* border: 2px solid #006DEA; */
+    text-align: left;
+    box-shadow: none;
+}
+
+.empty-list{
+    margin: auto;
+}
+

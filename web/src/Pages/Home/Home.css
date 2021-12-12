@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Corinthia:wght@700&display=swap");
+.home-text--container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 20vh; */
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.home-text--container h1 {
+  color: hsl(234, 12%, 34%);
+  margin: 0 0 10px 0;
+}
+
+.home-text--container p {
+  color: hsl(229, 6%, 66%);
+  margin: 0;
+}
+
+.home-card--container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58vh;
+}
+
+.home-quote--container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 15vh;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  width: 65%;
+  padding: 0 10px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.quote-text--container h2 {
+  margin: 0;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.quote-text--container h3 {
+  margin: 0;
+  /* font-weight: 500; */
+  font-size: 30px;
+  font-family: "Corinthia", cursive;
+}
+
+.weather {
+  width: 130px;
+  /* height: 150px; */
+  /* border: 2px solid red; */
+  position: absolute;
+  right: 20px;
+  top:100px;
+  padding: 10px;
+  background-image: linear-gradient(#0E2A47, #194C80);
+  border-radius: 10px;
+  color: white;
+}
+.weather p{
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+.top-weather-div{
+ display: flex;
+ justify-content: space-evenly;
+ align-items: center;
+}
+
+.top-weather-div h1{
+    margin: 0;
+}
