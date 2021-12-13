@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Dialog.css";
 import ListItem from "../../components/ListItem/ListItem";
 import firebase from "../../firebase";
+import { PracticeContext } from "../../context/contextPractice";
 
 const Dialog = ({ type, currentUserId }) => {
   const [click, setClick] = useState(false);
   const [field, setField] = useState("");
   const [TodoList, setTodoList] = useState([]);
+
+  const {addOrEdit} = useContext(PracticeContext);
 
  
 
@@ -14,9 +17,9 @@ const Dialog = ({ type, currentUserId }) => {
     event.preventDefault();
     setField(event.target[0].value);
     if (type === "explorer") {
-      addOrEdit(event.target[0].value);
+      addOrEdit(event.target[0].value,type);
     }else{
-      addOrEdit(event.target[0].value,event.target[1].value,event.target[2].value,event.target[3].value);
+      addOrEdit(event.target[0].value,type,event.target[1].value,event.target[2].value,event.target[3].value);
     }
 
     setField("");
@@ -52,35 +55,7 @@ const Dialog = ({ type, currentUserId }) => {
     });
   }, []);
 
-  const addOrEdit = (title,date,time,duration) => {
-    const todoRef = firebase
-      .database()
-      .ref(currentUserId)
-      .child("Task");
-   let todo1 = {}; 
-   
-  if(date && time){
-       const todo ={
-          title,
-          completed: false,
-          type: type,
-          date,
-          time,
-          duration,
-          timestamp: Date.now()
-        }
-        todo1 = todo
-      }else{
-        const todo = {
-          title,
-          completed: false,
-          type: type,
-        }
-        todo1 = todo
-      }
-    
-    todoRef.push(todo1);
-  };
+  
    const editTask = (edit) => {
     //  setClick(edit);
     // const todoRef = firebase.database()

@@ -1,34 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ListItem.css";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from '@mui/icons-material/Delete';
 import firebase from '../../firebase';
 import EditIcon from '@mui/icons-material/Edit';
+import { PracticeContext } from "../../context/contextPractice";
 
 const ListItem = (props) => {
   
-  // const currentUser = firebase.auth().currentUser?firebase.auth().currentUser.uid:'';
-
-  const handleChange = () => {
-    const todoRef = firebase.database().ref(props.currentUserId)
-    .child("Task").child(props.todo.id);
-    todoRef.update({
-      completed:!props.todo.completed 
-    });
-  };
-
-  const handleDelete = () => {
-    const todoRef = firebase.database()
-    .ref(props.currentUserId).child("Task").child(props.todo.id);
-    todoRef.remove();
-  }
+   const {handleUpdate, handleDelete} = useContext(PracticeContext);
+  
 
   return (
     <div  className="list-item--container">
       <Checkbox
         style = {{width:'65px',marginRight:"20px"}}
         checked={props.todo.completed}
-        onChange={handleChange}
+        onChange={() => handleUpdate(props.currentUserId, props.todo.id,props.todo.completed )}
         inputProps={{ "aria-label": "controlled" }}
       />
       <div className="todo-list-div">
@@ -38,7 +26,7 @@ const ListItem = (props) => {
       }
       </div>
       <div>
-        <div className="icon-div" onClick={handleDelete}><DeleteIcon /></div>  
+        <div className="icon-div" onClick={() => handleDelete(props.currentUserId, props.todo.id)}><DeleteIcon /></div>  
         {
           props.type !== 'strict'?(
                    <div className="icon-div" onClick={() => props.editTask(true)}><EditIcon /></div>

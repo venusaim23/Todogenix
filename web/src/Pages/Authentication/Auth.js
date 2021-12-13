@@ -1,58 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { auth } from "../../firebase";
 import './Auth.css';
 import logoForBig from '../../Images/tg_shadow_notext.svg';
 import './Auth.css';
+import {PracticeContext} from '../../context/contextPractice';
 
-const Auth = ({setCurrentUserId}) => {
+const Auth = () => {
   const [signup, setSignup] = useState(true);
 
+  const {handleLoginSubmit, handleSignUpSubmit} = useContext(PracticeContext);
+
   
-
-  const handleLoginSubmit = (eve) => {
-    eve.preventDefault();
-    const email = eve.target[0].value;
-    const password = eve.target[1].value;
-
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUserId(user.uid);
-        window.location = `${window.location.origin}/home`;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
-
-  const handleSignUpSubmit = (eve) => {
-    eve.preventDefault();
-
-    const name = eve.target[0].value;
-    const email = eve.target[1].value; 
-    const password = eve.target[2].value;
-    const location = eve.target[3].value;
-
-    localStorage.setItem('name',name);
-    localStorage.setItem('location',location);
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUserId(user.uid);
-
-        window.location = `${window.location.origin}/home`;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
 
   return (
     <div className="main-auth--container">
