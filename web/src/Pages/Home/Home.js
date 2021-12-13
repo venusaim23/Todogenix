@@ -22,7 +22,7 @@ const Home = () => {
                <button className='log-out--button' onClick={() => window.location = '/'}>Log Out</button>
                 </div>   
                </div>
-            <h1 style={{marginTop:'20px',marginBottom:0}}>Good Morning, {capitalizeFirstLetter(userName)}</h1>
+            <h1 style={{marginTop:'20px',marginBottom:0}}>Good Morning, Mayank</h1>
             </div>
             {/* <div className="weather">
                 <div className='top-weather-div'>
