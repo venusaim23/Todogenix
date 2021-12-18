@@ -134,7 +134,7 @@
                     android:layout_below="@+id/card_heading"
                     android:layout_marginHorizontal="25dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/lorem_ipsum"
+                    android:text="@string/todo_description"
                     android:textColor="@color/grayish_blue" />
 
                 <ImageView
@@ -202,7 +202,7 @@
                     android:layout_below="@+id/card_heading_timer"
                     android:layout_marginHorizontal="25dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/lorem_ipsum"
+                    android:text="@string/timer_description"
                     android:textColor="@color/grayish_blue" />
 
                 <ImageView

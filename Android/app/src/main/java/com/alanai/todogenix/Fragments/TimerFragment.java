@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -28,7 +29,7 @@ public class TimerFragment extends Fragment {
     private CountDownTimer countDownTimer;
     private CountDownTimer cdtBreak;
 
-    private long totalWorkTime = 60000;
+    private long totalWorkTime = 1500000;
     private long remainingWorkTime = totalWorkTime;
 
     //Todo settings
@@ -63,6 +64,13 @@ public class TimerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         updateTimer(remainingWorkTime);
+
+        binding.timeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimePicker();
+            }
+        });
 
         binding.playBtnTimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +134,10 @@ public class TimerFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void openTimePicker() {
+//        AlertDialog.Builder builder =
     }
 
     public void stopBreak() {

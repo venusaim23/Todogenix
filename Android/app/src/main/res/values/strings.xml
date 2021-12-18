@@ -55,4 +55,6 @@
     <string name="sign_up">Sign up</string>
     <string name="city">City</string>
     <string name="empty_list">List is empty\nTry adding some tasks</string>
+    <string name="todo_description">Store and monitor your daily tasks into three categories Explorer, Flexible and Strict based upon your comfort and priorities</string>
+    <string name="timer_description">Pomodoro timer break work into intervals, traditionally 25 minutes in length, separated by short breaks and long breaks</string>
 </resources>
