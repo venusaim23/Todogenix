@@ -1,0 +1,96 @@
+.main-auth--container{
+    background-image: url('../../Images/background.png');
+    height: 100vh; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.authInput{
+    margin: 10px 0;
+    /* width: 250px; */
+    height: 4vh;
+    /* border: none; */
+    /* border-bottom: 2px solid black; */
+    font-size: 15px;
+    /* background-color: hsl(229, 6%, 66%); */
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: #EEEEEE;
+    border-bottom: 3px solid transparent;
+}
+
+.sign-up{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 200px;
+    /* padding-top: 20px; */
+    height: 100vh;
+}
+
+.sign-up--div{
+    /* border:6px solid #006DEA; */
+    margin-top: 40px;
+    border-radius:50px 0 50px 0;
+    padding: 30px;
+    position: relative;
+    padding-top:60px;
+    width: 35%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.sign-up-img{
+    width: 120px;
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    top:-61px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.authInput:focus {
+    outline: none;
+    border-bottom: 3px solid #006DEA;
+}
+
+.auth-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-button{
+    background-color: #006DEA ;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    padding:8px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.para-auth{
+    text-align: center;
+    color:#212121;
+}
+
+.para-auth--button{
+    margin-left: 5px;
+    background-color: #006DEA ;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    color: white;
+    padding:5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
