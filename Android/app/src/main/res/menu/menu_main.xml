@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.alanai.todogenix.Activities.MainActivity">
 
-    <item android:id="@+id/action_settings"
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_round_settings"
         android:orderInCategory="500"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_round_settings" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_sign_out"
