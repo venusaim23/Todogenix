@@ -33,6 +33,6 @@ If you are interested in our project, you can fork the repository and try the ap
 
 ## Disclaimer
 
-The entire project was made from scratch in 3 days for participating in [Cloud Native Hackathon](https://cloudnativehack21.devpost.com/). A lot features that you expect might not be present in the application at the moment. But we are constantly working and will keep working on the betterment of the project. The main goal is to explore new things, learn to by doing, and collaborate with new folks all over the world and contribute to open source.
+Some features that you expect might not be present in the application at the moment. But we are constantly working and will keep working on the betterment of the project. The main goal is to explore new things, learn to by doing, and collaborate with new folks all over the world and contribute to open source.
 
 Let's not blame the application for the flaws it have but collaborate together and work on it's fix. Feel free to connect to the contributors :)
